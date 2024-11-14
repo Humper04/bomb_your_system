@@ -12,52 +12,48 @@ if [[ ! -f $input_file ]]; then
     exit 1
 fi
 
-# Check if the tiers are valid numbers
+# Validate that tier_from and tier_to are integers
 if ! [[ "$tier_from" =~ ^[0-9]+$ && "$tier_to" =~ ^[0-9]+$ && "$tier_from" -le "$tier_to" ]]; then
     echo "Error: Both 'tier_from' and 'tier_to' must be valid integers, with 'tier_from' <= 'tier_to'."
     exit 1
 fi
 
-# Define a base directory for all tiers
-base_dir="compression_layers"
-mkdir -p "$base_dir"
+# Set base directory to where the script is running
+base_dir="$(pwd)"
 
-# Start with tier 0 compression using bzip2 if tier_from is 0
+# Initial compression for tier 0
 if [[ $tier_from -eq 0 ]]; then
-    bz2_file="${input_file%.*}.bz2"
+    bz2_file="${input_file}.bz2"
     bzip2 -zk "$input_file" -c > "$bz2_file"
     echo "Tier 0 compression done: $bz2_file"
     input_file="$bz2_file"
     ((tier_from++))
 fi
 
-# Main compression loop from tier_from to tier_to using 7z, overwriting and renaming at each layer
+# Main compression loop from tier_from to tier_to
 for (( i=tier_from; i<=tier_to; i++ )); do
-    # Create a separate directory for each tier inside the base directory
-    dir_name="$base_dir/tier_$i"
-    mkdir -p "$dir_name"
-    
-    # Determine the number of characters to strip based on the tier number
-    if (( i < 10 )); then
-        remove_chars=3
-    else
-        remove_chars=4
-    fi
+    # Create the tier directory if it doesn't exist
+    tier_dir="$base_dir/tier_$i"
+    mkdir -p "$tier_dir"
 
-    # Strip the specified number of characters from the end of the filename (basename only)
-    base_name="${input_file%.*}"
-    stripped_name="${base_name:0:${#base_name}-$remove_chars}"
+    # Prepare 16 copies of the file with suffixes _1 to _16 in the tier directory
+    for (( j=1; j<=16; j++ )); do
+        cp "$input_file" "$tier_dir/$(basename "${input_file%.*}")_v${i}_$j.${input_file##*.}"
+    done
+    echo "Tier $i: Created 16 copies with suffixes _1 to _16 in $tier_dir."
 
-    # Construct the new filename for the current layer inside the new directory
-    layer_file="$dir_name/${stripped_name}_v${i}.7z"
+    # Compress all copies in the tier directory into a single 7z archive
+    output_file="${input_file%.*}_v${i}.7z"
+    7zz a -t7z "$tier_dir/$(basename "$output_file")" "$tier_dir"/* >/dev/null
+    echo "Tier $i compression complete: $tier_dir/$(basename "$output_file")"
 
-    # Compress the file and rename accordingly
-    7zz a -t7z "$layer_file" "$input_file" >/dev/null
-    echo "Tier $i compression complete: $layer_file"
+    # Move the compressed file to the root directory and remove cumulative version numbers
+    final_output="$base_dir/$(basename "${input_file%.*}")_v${i}.7z"
+    mv "$tier_dir/$(basename "$output_file")" "$final_output"
+    echo "Moved compressed file to root directory: $final_output"
 
-    # Remove the previous file and replace with the new compressed file
-#    rm -f "$input_file"
-    input_file="$layer_file"
+    # Update input file to be the newly created 7z file for the next tier
+    input_file="$final_output"
 done
 
-echo "Layered compression from tier $tier_from to tier $tier_to completed."
+echo "Final file: $input_file"
