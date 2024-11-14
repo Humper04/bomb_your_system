@@ -2,11 +2,6 @@
 # source: https://www.linuxfordevices.com/tutorials/linux/creating-zip-bombs
 # idea: https://github.com/iamtraction/ZOD
 
-# Request user input for file, tier_from, and tier_to
-read -p "Enter the file to compress: " input_file
-read -p "Enter the starting tier (tier_from): " tier_from
-read -p "Enter the ending tier (tier_to): " tier_to
-
 # Ensure the input file exists
 if [[ ! -f $input_file ]]; then
     echo "Error: File '$input_file' not found."
@@ -19,6 +14,10 @@ if ! [[ "$tier_from" =~ ^[0-9]+$ && "$tier_to" =~ ^[0-9]+$ && "$tier_from" -le "
     exit 1
 fi
 
+# Define a base directory for all tiers
+base_dir="compression_layers"
+mkdir -p "$base_dir"
+
 # Start with tier 0 compression using bzip2 if tier_from is 0
 if [[ $tier_from -eq 0 ]]; then
     bz2_file="${input_file%.*}.bz2"
@@ -30,8 +29,8 @@ fi
 
 # Main compression loop from tier_from to tier_to using 7z, overwriting and renaming at each layer
 for (( i=tier_from; i<=tier_to; i++ )); do
-    # Create the directory for this tier if it doesn't exist
-    dir_name="tier_$i"
+    # Create a separate directory for each tier inside the base directory
+    dir_name="$base_dir/tier_$i"
     mkdir -p "$dir_name"
     
     # Determine the number of characters to strip based on the tier number
