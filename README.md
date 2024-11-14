@@ -2,7 +2,7 @@
 
 This is the bomb_your_system repo. It contain files to destroy your system space. Use with caution when decompressing! <br>
 I left a compress.sh in the repo to layer your compression as good as possible. Make sure to have bzip2 and 7zip installed before running the script (these are used for compression). <br>
-WARNING!! Script compress_from_base.sh recplicates what I did and so also includes the command to create a 10GB file of nulls and will compress till layer 12. If you want to remove the old compressed tier, compress.sh contains a comment almost at the end of the file which does this and you can include it for compress_from_base.sh <br>
+WARNING!! Script compress_from_base.sh recplicates what I did and so also includes the command to create a 10GB file of nulls and will compress till layer 12. If you want to remove the old compressed tier, compress.sh contains a comment almost at the end of the file which does this and you can include it for compress_from_base.sh <br> <br>
 Sizes in comparision: <br>
 Tier 0 (base file compressed): 10 GB     = 9,31 GiB   = 10.000.000.000 bytes <br>
 Tier 1:                        160 GB    = 149,01 GiB = 160.000.000.000 bytes <br>
