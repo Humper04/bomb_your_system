@@ -20,7 +20,7 @@ fi
 
 # Start with tier 0 compression using bzip2 if tier_from is 0
 if [[ $tier_from -eq 0 ]]; then
-    bz2_file="${input_file%.*}.bz2"
+    bz2_file="${input_file}.bz2"
     bzip2 -zk "$input_file" -c > "$bz2_file"
     echo "Tier 0 compression done: $bz2_file"
     input_file="$bz2_file"
