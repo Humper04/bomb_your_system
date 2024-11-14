@@ -33,16 +33,17 @@ for (( i=tier_from; i<=tier_to; i++ )); do
     dir_name="tier_$i"
     mkdir -p "$dir_name"
     
-    # Determine the number of characters to strip based on the tier number
-    if (( i < 10 )); then
-        remove_chars=3
-    else
-        remove_chars=4
-    fi
+#    # Determine the number of characters to strip based on the tier number
+#    if (( i < 10 )); then
+#        remove_chars=3
+#    else
+#        remove_chars=4
+#    fi
 
     # Strip the specified number of characters from the end of the filename (basename only)
     base_name="${input_file%.*}"
-    stripped_name="${base_name:0:${#base_name}-$remove_chars}"
+#    stripped_name="${base_name:0:${#base_name}-$remove_chars}"
+    stripped_name="${base_name:0:${#base_name}}"
 
     # Construct the new filename for the current layer inside the new directory
     layer_file="$dir_name/${stripped_name}_v${i}.7z"
