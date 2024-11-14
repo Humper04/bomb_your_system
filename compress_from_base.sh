@@ -1,6 +1,11 @@
 #!/bin/bash
 dd if=/dev/zero of=data.null bs=1G count=10
 
+# Request user input for file, tier_from, and tier_to
+input_file="data.null"
+tier_from=0
+tier_to=12
+
 # Ensure the input file exists
 if [[ ! -f $input_file ]]; then
     echo "Error: File '$input_file' not found."
