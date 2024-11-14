@@ -18,4 +18,9 @@ Tier 8:                        42,95 EB  = 37,25 EiB  = 42.949.672.960.000.000.0
 Tier 9:                        687,19 EB = 596,05 EiB = 687.194.767.360.000.000.000 bytes <br>
 Tier 10:                       11,00 ZB  = 9,31 ZiB   = 10.995.116.277.760.000.000.000 bytes <br>
 Tier 11:                       175,92 ZB = 149,01 ZiB = 175.921.860.444.160.000.000.000 bytes <br>
-Tier 12:                       2,81 YB   =  2,33 YiB  = 2.814.749.767.106.560.000.000.000 bytes <br>
+Tier 12:                       2,81 YB   =  2,33 YiB  = 2.814.749.767.106.560.000.000.000 bytes <br><br><br>
+Sources:<br>
+The idea of creating a zip bomb: https://github.com/iamtraction/ZOD<br>
+How to create a zip bomb: https://www.linuxfordevices.com/tutorials/linux/creating-zip-bombs<br>
+Calculating sizes till YB / YiB: https://www.dataunitconverter.com/yottabyte-to-byte/2.74877906944<br>
+Looping system for size calculation: https://stackoverflow.com/a/31631711

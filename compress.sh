@@ -1,6 +1,4 @@
 #!/bin/bash
-# source: https://www.linuxfordevices.com/tutorials/linux/creating-zip-bombs
-# idea: https://github.com/iamtraction/ZOD
 
 # Request user input for file, tier_from, and tier_to
 read -p "Enter the file to compress: " input_file

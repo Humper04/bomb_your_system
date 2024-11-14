@@ -1,5 +1,3 @@
-# site (includes all sizes till YB): https://www.dataunitconverter.com/yottabyte-to-byte/2.74877906944
-# source: https://stackoverflow.com/a/31631711
 def format_size(size, unit):
     """Format the size with a comma for GB and GiB, and dots for other units."""
     if unit in ['GB', 'GiB']:
