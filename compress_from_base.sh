@@ -6,9 +6,6 @@ input_file="data.null"
 tier_from=0
 tier_to=12
 
-read -p "Enter the starting tier (tier_from): " tier_from
-read -p "Enter the ending tier (tier_to): " tier_to
-
 # Ensure the input file exists
 if [[ ! -f $input_file ]]; then
     echo "Error: File '$input_file' not found."
