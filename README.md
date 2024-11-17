@@ -6,6 +6,7 @@ WARNING!! Script compress_from_base.sh recplicates what I did and so also includ
 Script is working, only the renaming part is not working correctly (it's either you remove 3 characters from the version and the filename, or you don't)<br>
 If you want to calculate it what the sizes would be if you used a different size file / a different amout per commpression, change the values at the end of calculate.py <br> <br>
 Sizes in comparision: <br>
+<pre>
 Tier 0 (base file compressed): 10 GB     = 9,31 GiB   = 10.000.000.000 bytes <br>
 Tier 1:                        160 GB    = 149,01 GiB = 160.000.000.000 bytes <br>
 Tier 2:                        2,56 TB   = 2,33 TiB   = 2.500.000.000.000 bytes <br>
@@ -19,6 +20,7 @@ Tier 9:                        687,19 EB = 596,05 EiB = 687.194.767.360.000.000.
 Tier 10:                       11,00 ZB  = 9,31 ZiB   = 10.995.116.277.760.000.000.000 bytes <br>
 Tier 11:                       175,92 ZB = 149,01 ZiB = 175.921.860.444.160.000.000.000 bytes <br>
 Tier 12:                       2,81 YB   =  2,33 YiB  = 2.814.749.767.106.560.000.000.000 bytes <br><br><br>
+</pre>
 Sources:<br>
 The idea of creating a zip bomb: https://github.com/iamtraction/ZOD<br>
 How to create a zip bomb: https://www.linuxfordevices.com/tutorials/linux/creating-zip-bombs<br>
